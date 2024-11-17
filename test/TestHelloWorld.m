@@ -1,6 +1,6 @@
 classdef TestHelloWorld < matlab.unittest.TestCase
     methods (TestClassSetup)
-        function addSourceToPath(testCase)
+        function addSourceToPath(testCase) %#ok<MANU>
             % Add the 'src' folder to the MATLAB path for testing
             projectRoot = fileparts(fileparts(mfilename('fullpath')));
             srcPath = fullfile(projectRoot, 'src');
@@ -11,7 +11,7 @@ classdef TestHelloWorld < matlab.unittest.TestCase
     methods (Test)
         function testSayHello(testCase)
             % Create an instance of HelloWorld
-            hw = HelloWorld();
+            hw = HelloWorld(); %#ok<NASGU>
 
             % Capture the output of sayHello
             output = evalc('hw.sayHello()');
