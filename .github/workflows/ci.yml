@@ -1,0 +1,43 @@
+name: Build and Test MATLAB Project
+
+on:
+  push:
+    branches:
+      - development
+  pull_request:
+    branches:
+      - main
+      - development
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up MATLAB
+      - name: Set up MATLAB
+        uses: matlab-actions/setup-matlab@v1
+        with:
+          release: R2023b  # Update to your MATLAB release if needed
+
+      # Step 3: Build Docker image
+      - name: Build Docker image
+        run: |
+          docker build -t matlab-thingy .
+
+      # Step 4: Run tests in the container
+      - name: Run MATLAB tests
+        run: |
+          docker run --rm matlab-thingy matlab -batch "run('test/run_tests.m')"
+
+      # Step 5: Upload Test Results (Optional)
+      - name: Upload test results
+        if: failure()  # Only upload if tests fail
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: test-results/
