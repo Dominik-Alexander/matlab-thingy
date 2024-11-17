@@ -3,4 +3,4 @@ WORKDIR  /app
 
 COPY src/* .
 
-CMD ["matlab" "-nodesktop", "-nosplash", "-r", "main"]
+CMD ["matlab", "-nodesktop", "-nosplash", "-r", "main"]

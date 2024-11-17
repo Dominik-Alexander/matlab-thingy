@@ -4,7 +4,7 @@ classdef HelloWorld
             % Constructor
         end
         
-        function sayHello(obj)
+        function sayHello(~)
             disp('Hello world!');
         end
     end
